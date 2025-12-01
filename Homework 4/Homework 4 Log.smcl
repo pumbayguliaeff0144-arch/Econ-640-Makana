@@ -1,0 +1,294 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}H:\My Drive\Econ 640\Homework 4\Homework 4 Log.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 1 Dec 2025, 10:52:41
+{txt}
+{com}. 
+. *Part A*
+. 
+. sysuse auto
+{txt}(1978 automobile data)
+
+{com}. reg price weight mpg
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}        74
+{txt}{hline 13}{c +}{hline 34}   F(2, 71)        = {res}    14.74
+{txt}       Model {c |} {res}  186321280         2  93160639.9   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  448744116        71  6320339.67   {txt}R-squared       ={res}    0.2934
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.2735
+{txt}       Total {c |} {res}  635065396        73  8699525.97   {txt}Root MSE        =   {res}   2514
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       price{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}weight {c |}{col 14}{res}{space 2} 1.746559{col 26}{space 2} .6413538{col 37}{space 1}    2.72{col 46}{space 3}0.008{col 54}{space 4}  .467736{col 67}{space 3} 3.025382
+{txt}{space 9}mpg {c |}{col 14}{res}{space 2}-49.51222{col 26}{space 2} 86.15604{col 37}{space 1}   -0.57{col 46}{space 3}0.567{col 54}{space 4}-221.3025{col 67}{space 3}  122.278
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1946.069{col 26}{space 2}  3597.05{col 37}{space 1}    0.54{col 46}{space 3}0.590{col 54}{space 4}-5226.245{col 67}{space 3} 9118.382
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. estat hettest
+
+{txt}Breusch–Pagan/Cook–Weisberg test for heteroskedasticity 
+Assumption: Normal error terms
+{p 0 11 0}Variable:{space 1}{res:{txt:Fitted values of} {res:price}}{p_end}
+
+H0: Constant variance
+
+{ralign 11:chi2({res:1})} = {res}{ralign 6:14.78}
+{txt}{ralign 11:Prob > chi2} = {res}{ralign 6:0.0001}
+{txt}
+{com}. 
+. /* Since the p-value is 0.0001, we would reject the null hypothesis that the
+> variance is homoskedastic. This implies that we have are dealing with
+> heteroskedasticity */
+. 
+. regress price weight mpg, robust
+
+{txt}Linear regression                               Number of obs     = {res}        74
+                                                {txt}F(2, 71)          =  {res}    14.84
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2934
+                                                {txt}Root MSE          =    {res}   2514
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       price{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}weight {c |}{col 14}{res}{space 2} 1.746559{col 26}{space 2}  .777837{col 37}{space 1}    2.25{col 46}{space 3}0.028{col 54}{space 4} .1955963{col 67}{space 3} 3.297522
+{txt}{space 9}mpg {c |}{col 14}{res}{space 2}-49.51222{col 26}{space 2}  95.8074{col 37}{space 1}   -0.52{col 46}{space 3}0.607{col 54}{space 4}-240.5468{col 67}{space 3} 141.5223
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1946.069{col 26}{space 2} 4213.793{col 37}{space 1}    0.46{col 46}{space 3}0.646{col 54}{space 4}-6455.995{col 67}{space 3} 10348.13
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /* The standard errors of the robust regression are larger than just the regular
+> regression. By using robust, we relax the assumption that variance of the errors
+> is constant across all observations. This will lead to higher uncertainty, 
+> making the robsut standard errors larger */
+. 
+. *Part B*
+. 
+. sysuse nlsw88, clear
+{txt}(NLSW, 1988 extract)
+
+{com}. reg wage age collgrad
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     2,246
+{txt}{hline 13}{c +}{hline 34}   F(2, 2243)      = {res}    87.71
+{txt}       Model {c |} {res} 5394.00567         2  2697.00283   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 68973.9617     2,243  30.7507631   {txt}R-squared       ={res}    0.0725
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0717
+{txt}       Total {c |} {res} 74367.9674     2,245  33.1260434   {txt}Root MSE        =   {res} 5.5453
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}        wage{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2}-.0643324{col 26}{space 2} .0382481{col 37}{space 1}   -1.68{col 46}{space 3}0.093{col 54}{space 4}-.1393378{col 67}{space 3}  .010673
+{txt}{space 4}collgrad {c |}{col 14}{res}{space 2} 3.612098{col 26}{space 2} .2752221{col 37}{space 1}   13.12{col 46}{space 3}0.000{col 54}{space 4} 3.072381{col 67}{space 3} 4.151815
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 9.430184{col 26}{space 2} 1.503989{col 37}{space 1}    6.27{col 46}{space 3}0.000{col 54}{space 4} 6.480828{col 67}{space 3} 12.37954
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. reg wage age collgrad, cluster(occupation)
+
+{txt}Linear regression                               Number of obs     = {res}     2,237
+                                                {txt}F(2, 12)          =  {res}    14.91
+                                                {txt}Prob > F          = {res}    0.0006
+                                                {txt}R-squared         = {res}    0.0733
+                                                {txt}Root MSE          =    {res} 5.5487
+
+{txt}{ralign 78:(Std. err. adjusted for {res:13} clusters in {res:occupation})}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}        wage{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2}-.0669641{col 26}{space 2} .0431162{col 37}{space 1}   -1.55{col 46}{space 3}0.146{col 54}{space 4}-.1609062{col 67}{space 3} .0269781
+{txt}{space 4}collgrad {c |}{col 14}{res}{space 2} 3.632842{col 26}{space 2} .6751054{col 37}{space 1}    5.38{col 46}{space 3}0.000{col 54}{space 4} 2.161914{col 67}{space 3}  5.10377
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 9.539055{col 26}{space 2} 2.092498{col 37}{space 1}    4.56{col 46}{space 3}0.001{col 54}{space 4} 4.979894{col 67}{space 3} 14.09822
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /* The cluster-robust standard errors are a lot larger than the OLS standard
+> errors. This is because they allow for correlation within each cluster which
+> causes the variance to increase as a result of the dependency. */
+. 
+. *Part C*
+. 
+. bcuse cps91, clear
+
+{txt}Contains data from {res}http://fmwww.bc.edu/ec-p/data/wooldridge/cps91.dta
+{txt} Observations:{res}         5,634                  
+{txt}    Variables:{res}            24                  20 May 2002 11:05
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:husage         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}husband's age{p_end}
+{p 0 48}{bind:husunion       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if hus. in union{p_end}
+{p 0 48}{bind:husearns       }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}hus. weekly earns{p_end}
+{p 0 48}{bind:huseduc        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}husband's yrs schooling{p_end}
+{p 0 48}{bind:husblck        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if hus. black{p_end}
+{p 0 48}{bind:hushisp        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if hus. hispanic{p_end}
+{p 0 48}{bind:hushrs         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}hus. weekly hours{p_end}
+{p 0 48}{bind:kidge6         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if have child >= 6{p_end}
+{p 0 48}{bind:earns          }{txt}{bind: float   }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}wife's weekly earnings{p_end}
+{p 0 48}{bind:age            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}wife's age{p_end}
+{p 0 48}{bind:black          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if wife black{p_end}
+{p 0 48}{bind:educ           }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}wife's yrs schooling{p_end}
+{p 0 48}{bind:hispanic       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if wife hispanic{p_end}
+{p 0 48}{bind:union          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if wife in union{p_end}
+{p 0 48}{bind:faminc         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}annual family income{p_end}
+{p 0 48}{bind:husexp         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}huseduc - husage - 6{p_end}
+{p 0 48}{bind:exper          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}age - educ - 6{p_end}
+{p 0 48}{bind:kidlt6         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if have child < 6{p_end}
+{p 0 48}{bind:hours          }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}wife's weekly hours{p_end}
+{p 0 48}{bind:expersq        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}exper^2{p_end}
+{p 0 48}{bind:nwifeinc       }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}non-wife inc, $1000s{p_end}
+{p 0 48}{bind:inlf           }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if wife in labor force{p_end}
+{p 0 48}{bind:hrwage         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}earns/hours{p_end}
+{p 0 48}{bind:lwage          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}log(hrwage){p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. gen lnexper = ln(exper)
+{txt}(20 missing values generated)
+
+{com}. reg hrwage lnexper 
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,276
+{txt}{hline 13}{c +}{hline 34}   F(1, 3274)      = {res}     0.06
+{txt}       Model {c |} {res} 2.93774269         1  2.93774269   {txt}Prob > F        ={res}    0.8077
+{txt}    Residual {c |} {res} 162316.271     3,274  49.5773582   {txt}R-squared       ={res}    0.0000
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}   -0.0003
+{txt}       Total {c |} {res} 162319.209     3,275  49.5631171   {txt}Root MSE        =   {res} 7.0411
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      hrwage{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}lnexper {c |}{col 14}{res}{space 2} .0459342{col 26}{space 2} .1886995{col 37}{space 1}    0.24{col 46}{space 3}0.808{col 54}{space 4}-.3240469{col 67}{space 3} .4159152
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 10.25202{col 26}{space 2} .5408182{col 37}{space 1}   18.96{col 46}{space 3}0.000{col 54}{space 4} 9.191647{col 67}{space 3}  11.3124
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /* The coefficient on lnexper is 0.0459. This means that a 1% change in 
+> experience is associated with a change in hourly wages of 0.000459. */
+. 
+. reg hrwage exper
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,286
+{txt}{hline 13}{c +}{hline 34}   F(1, 3284)      = {res}     2.22
+{txt}       Model {c |} {res}   109.6416         1    109.6416   {txt}Prob > F        ={res}    0.1367
+{txt}    Residual {c |} {res} 162457.898     3,284  49.4695184   {txt}R-squared       ={res}    0.0007
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0004
+{txt}       Total {c |} {res}  162567.54     3,285  49.4878356   {txt}Root MSE        =   {res} 7.0335
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      hrwage{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}exper {c |}{col 14}{res}{space 2}-.0184498{col 26}{space 2} .0123929{col 37}{space 1}   -1.49{col 46}{space 3}0.137{col 54}{space 4}-.0427484{col 67}{space 3} .0058488
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 10.72282{col 26}{space 2}  .268537{col 37}{space 1}   39.93{col 46}{space 3}0.000{col 54}{space 4} 10.19631{col 67}{space 3} 11.24934
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /* If we were to regress without logging experience then the coefficient would
+> be -0.0184. This would mean that a one unit-change in experince would be 
+> associated with a -0.0184 change in horuly wages. However, this implies that 
+> increasing experience would diminish wages. By logging experience, the 
+> diminishing effects of experience is accounted for */
+. 
+. *Part D*
+. 
+. bcuse bwght2, clear
+
+{txt}Contains data from {res}http://fmwww.bc.edu/ec-p/data/wooldridge/bwght2.dta
+{txt} Observations:{res}         1,832                  
+{txt}    Variables:{res}            23                  24 May 2002 08:47
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:mage           }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}mother's age, years{p_end}
+{p 0 48}{bind:meduc          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}mother's educ, years{p_end}
+{p 0 48}{bind:monpre         }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}month prenatal care began{p_end}
+{p 0 48}{bind:npvis          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}total number of prenatal visits{p_end}
+{p 0 48}{bind:fage           }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}father's age, years{p_end}
+{p 0 48}{bind:feduc          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}father's educ, years{p_end}
+{p 0 48}{bind:bwght          }{txt}{bind: int     }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}birth weight, grams{p_end}
+{p 0 48}{bind:omaps          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}one minute apgar score{p_end}
+{p 0 48}{bind:fmaps          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}five minute apgar score{p_end}
+{p 0 48}{bind:cigs           }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}avg cigarettes per day{p_end}
+{p 0 48}{bind:drink          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}avg drinks per week{p_end}
+{p 0 48}{bind:lbw            }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if bwght <= 2000{p_end}
+{p 0 48}{bind:vlbw           }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if bwght <= 1500{p_end}
+{p 0 48}{bind:male           }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if baby male{p_end}
+{p 0 48}{bind:mwhte          }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if mother white{p_end}
+{p 0 48}{bind:mblck          }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if mother black{p_end}
+{p 0 48}{bind:moth           }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if mother is other{p_end}
+{p 0 48}{bind:fwhte          }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if father white{p_end}
+{p 0 48}{bind:fblck          }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if father black{p_end}
+{p 0 48}{bind:foth           }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}=1 if father is other{p_end}
+{p 0 48}{bind:lbwght         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}log(bwght){p_end}
+{p 0 48}{bind:magesq         }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}mage^2{p_end}
+{p 0 48}{bind:npvissq        }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}npvis^2{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. logit lbw cigs mage
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res: -134.8245}  
+Iteration 1:{space 2}Log likelihood = {res:-133.21762}  
+Iteration 2:{space 2}Log likelihood = {res:-132.74617}  
+Iteration 3:{space 2}Log likelihood = {res:-132.74034}  
+Iteration 4:{space 2}Log likelihood = {res:-132.74034}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:1,722}
+{txt}{col 57}{lalign 13:LR chi2({res:2})}{col 70} = {res}{ralign 6:4.17}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.1244}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-132.74034}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.0155}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}         lbw{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}cigs {c |}{col 14}{res}{space 2}  .041738{col 26}{space 2} .0315485{col 37}{space 1}    1.32{col 46}{space 3}0.186{col 54}{space 4} -.020096{col 67}{space 3}  .103572
+{txt}{space 8}mage {c |}{col 14}{res}{space 2} -.067341{col 26}{space 2} .0422063{col 37}{space 1}   -1.60{col 46}{space 3}0.111{col 54}{space 4}-.1500638{col 67}{space 3} .0153818
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-2.307042{col 26}{space 2}  1.20524{col 37}{space 1}   -1.91{col 46}{space 3}0.056{col 54}{space 4}-4.669269{col 67}{space 3}  .055186
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. margins, dydx(cigs)
+{res}
+{txt}{col 1}Average marginal effects{col 58}{lalign 13:Number of obs}{col 71} = {res}{ralign 5:1,722}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(lbw), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:cigs}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}cigs {c |}{col 14}{res}{space 2} .0006189{col 26}{space 2} .0004809{col 37}{space 1}    1.29{col 46}{space 3}0.198{col 54}{space 4}-.0003236{col 67}{space 3} .0015613
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /* The marginal effect is about 0.0006. This means that a one-unit change in 
+> average cigarettes smoked during pregnancy can affect the probability that a 
+> baby will be born with low weight by 0.0006 
+> 
+> For an OLS regression, the coefficient would describe the direct change in the
+> dependent variable if there was a one-unit change in the predictor variable.
+> However, the coefficient of a logit model would describe the log probability of
+> an outcome. The reason why logit coefficients are less straightforward is
+> because the effect relies on the base probability of an event happening despite
+> the coefficients staying the same
+> */
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}H:\My Drive\Econ 640\Homework 4\Homework 4 Log.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 1 Dec 2025, 10:52:46
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
